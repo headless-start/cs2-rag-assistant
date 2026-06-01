@@ -29,3 +29,6 @@ models/
 # os / editor
 .DS_Store
 *.swp
+
+# eval generation cache (results.md is committed, not the raw cache)
+eval/cache/
