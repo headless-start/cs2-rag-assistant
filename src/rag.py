@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 
 from .llm import Generator
-from .retrieve import HybridRetriever, Passage
+from .retrieve import HybridRetriever
 
 SYSTEM = (
     "You are a Counter-Strike 2 assistant. Answer the question using ONLY the "

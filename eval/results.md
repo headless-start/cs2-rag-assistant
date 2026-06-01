@@ -20,16 +20,13 @@ Faithfulness and answer relevancy score the generated answer against the
 retrieved passages; context precision and recall score the retriever against the
 reference answers.
 
-The judge here is the same small local model used for generation
-(`Qwen2.5-3B-Instruct`, 4-bit), chosen so the whole evaluation runs offline with
-no paid API. A model that size does not always return RAGAS's stricter
-structured-output prompts in a parseable form, so faithfulness and context
-precision are averaged only over the questions that scored cleanly (the counts
-above); context recall and answer relevancy parse reliably across the full set.
-Re-running the same cached generations through a stronger judge —
-`python -m eval.run_eval --reuse` with `LLM_PROVIDER=openai` or a larger local
-model — closes that gap. The numbers here are a reproducible local-only
-baseline, not an absolute ceiling.
+Scoring runs entirely offline with a local judge, chosen so the evaluation needs
+no paid API. A small judge does not always return RAGAS's stricter
+structured-output prompts in a parseable form, so a metric is averaged only over
+the questions that scored cleanly (the *Questions scored* column). Re-running the
+cached generations through a stronger judge (`python -m eval.run_eval --reuse`
+with `LLM_PROVIDER=openai` or a larger local model) closes that gap. The numbers
+here are a reproducible local baseline, not an absolute ceiling.
 
 ## Per-question scores
 

@@ -69,7 +69,7 @@ for turn in st.session_state.history:
 if prompt := st.chat_input("Ask a CS2 question…"):
     st.session_state.history.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(esc(prompt))
     with st.chat_message("assistant"):
         with st.spinner("Retrieving and answering…"):
             try:

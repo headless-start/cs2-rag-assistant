@@ -7,18 +7,18 @@ Two phases, so the GPU only holds one set of models at a time:
 2. score that cache with RAGAS using a *local* judge LLM and local embeddings,
    so the whole thing runs with no paid API.
 
-    python -m eval.run_eval                 # generate + score
-    python -m eval.run_eval --reuse         # re-score the cached generations
+    LLM_4BIT=1 python -m eval.run_eval                 # generate + score (8 GB GPU)
+    LLM_4BIT=1 python -m eval.run_eval --reuse         # re-score cached generations
     JUDGE_MODEL=Qwen/Qwen2.5-7B-Instruct python -m eval.run_eval --reuse
 
-Every number written to results.md comes from this run.
+``LLM_4BIT=1`` keeps the generator and judge in 4-bit so they fit an 8 GB card;
+drop it to run in fp16/bf16. Every number written to results.md comes from the run.
 """
 import argparse
 import gc
 import json
 import os
 from datetime import date
-from pathlib import Path
 
 import yaml
 
@@ -122,34 +122,46 @@ def score(rows):
 
 def write_results(result, judge_name, n):
     df = result.to_pandas()
-    means = {m: float(df[m].mean()) for m in METRIC_LABELS if m in df.columns}
+    present = [m for m in METRIC_LABELS if m in df.columns]
+    means = {m: float(df[m].mean()) for m in present}
+    valid = {m: int(df[m].notna().sum()) for m in present}
+
+    gen_q = " (4-bit)" if os.environ.get("LLM_4BIT") == "1" else ""
+    judge_q = " (4-bit, local)" if os.environ.get("LLM_4BIT", "1") == "1" else " (local)"
 
     lines = [
         "# RAGAS evaluation",
         "",
         f"- **Date:** {date.today().isoformat()}",
         f"- **Questions:** {n} (see `questions.yaml`)",
-        f"- **Generator:** `{settings.gen_model}` (4-bit)",
-        f"- **Judge LLM:** `{judge_name}` (4-bit, local)",
+        f"- **Generator:** `{settings.gen_model}`{gen_q}",
+        f"- **Judge LLM:** `{judge_name}`{judge_q}",
         f"- **Judge embeddings:** `{settings.embed_model}`",
         f"- **Retriever:** bge-m3 dense + BM25, RRF fusion, "
         f"bge-reranker-v2-m3 rerank (top {settings.rerank_top_n})",
         "",
         "## Scores",
         "",
-        "| Metric | Score |",
-        "|--------|------:|",
+        "| Metric | Score | Questions scored |",
+        "|--------|------:|-----------------:|",
     ]
     for m, label in METRIC_LABELS.items():
         if m in means:
-            lines.append(f"| {label} | {means[m]:.3f} |")
+            lines.append(f"| {label} | {means[m]:.3f} | {valid[m]} / {n} |")
     lines += [
         "",
         "Faithfulness and answer relevancy score the generated answer against "
         "the retrieved passages; context precision and recall score the "
-        "retriever against the reference answers. Scores are produced by a "
-        "local open judge model, so treat them as a directional, reproducible "
-        "signal rather than an absolute ground truth.",
+        "retriever against the reference answers.",
+        "",
+        "Scoring runs entirely offline with a local judge, chosen so the "
+        "evaluation needs no paid API. A small judge does not always return "
+        "RAGAS's stricter structured-output prompts in a parseable form, so a "
+        "metric is averaged only over the questions that scored cleanly (the "
+        "*Questions scored* column). Re-running the cached generations through a "
+        "stronger judge (`python -m eval.run_eval --reuse` with "
+        "`LLM_PROVIDER=openai` or a larger local model) closes that gap. The "
+        "numbers here are a reproducible local baseline, not an absolute ceiling.",
         "",
         "## Per-question scores",
         "",
