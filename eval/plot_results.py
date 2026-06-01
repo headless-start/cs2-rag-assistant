@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from src.config import ROOT
 
 RESULTS = ROOT / "eval" / "results.md"
-OUT = ROOT / "docs" / "ragas_scores.png"
+OUT = ROOT / "results" / "ragas_scores.png"
 
 ORDER = ["Faithfulness", "Answer relevancy", "Context precision", "Context recall"]
 
@@ -22,7 +22,7 @@ ORDER = ["Faithfulness", "Answer relevancy", "Context precision", "Context recal
 def parse_scores(md):
     scores = {}
     for line in md.splitlines():
-        m = re.match(r"^\|\s*([A-Za-z ]+?)\s*\|\s*([0-9]*\.?[0-9]+)\s*\|\s*$", line)
+        m = re.match(r"^\|\s*([A-Za-z][A-Za-z ]*?)\s*\|\s*([0-9]*\.?[0-9]+)\s*\|", line)
         if m:
             scores[m.group(1).strip()] = float(m.group(2))
     return scores

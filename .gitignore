@@ -1,8 +1,3 @@
-# local agent/tool config — never commit
-CLAUDE.md
-.claude/
-AI_PORTFOLIO_PLAN.md
-
 # env / secrets
 .env
 .env.*
