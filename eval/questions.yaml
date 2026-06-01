@@ -1,0 +1,117 @@
+# Hand-written CS2 question set with short reference answers.
+# Used by eval/run_eval.py to score the pipeline with RAGAS. References are
+# kept consistent with the curated corpus so context_recall is meaningful.
+
+- question: How much does the AK-47 cost and what makes it so strong?
+  ground_truth: The AK-47 costs $2700 and is feared because it kills with a single headshot through a helmet at almost any range.
+
+- question: What is the price of the AWP and why is its kill reward only $100?
+  ground_truth: The AWP costs $4750, and its kill reward is only $100 to stop AWPers from snowballing money on top of their impact.
+
+- question: What is the difference between the M4A4 and the M4A1-S?
+  ground_truth: Both are CT rifles around $2900. The M4A1-S is silenced, more accurate and lower-recoil and hides the shooter's position and tracers but holds only 20 rounds with a small reserve, while the M4A4 carries 30 rounds with a large reserve and a more forgiving spray.
+
+- question: Which pistol is the standard eco-round buy and what does it do?
+  ground_truth: The P250, at $300, is the staple eco pistol; it deals strong armor-penetrating damage at short range and one-shots an unarmored head.
+
+- question: What is the SSG 08 and when is it used?
+  ground_truth: The SSG 08, or Scout, is a $1700 budget sniper that only one-shots to the head but is light and lets you move quickly while scoped, so it is used on eco and force rounds and for aggressive jump-shots.
+
+- question: How much do SMG kills reward, and what is the exception?
+  ground_truth: SMGs pay $600 per kill, except the P90, which pays $300.
+
+- question: How much does a shotgun kill pay?
+  ground_truth: A shotgun kill pays $900.
+
+- question: What does the Desert Eagle cost and what is its trade-off?
+  ground_truth: The Deagle costs $700 and can one-shot a head at most ranges, but it has punishing recoil and a slow rate of fire, so it rewards precise tapping.
+
+- question: What is the loss bonus ladder in CS2?
+  ground_truth: The round-loss bonus grows with each consecutive loss through $1400, $1900, $2400, $2900, and $3400, capped at $3400, and steps back down after a win.
+
+- question: How much money do players start each half with, and what is the maximum a player can hold?
+  ground_truth: Players start each half with $800, and the most anyone can hold is $16,000.
+
+- question: What bonus do the terrorists get for planting the bomb on a round they lose?
+  ground_truth: If the terrorists plant the bomb but lose the round, the whole team still receives an $800 bonus regardless of the loss ladder.
+
+- question: How much money do you get for winning a round by elimination or by the timer?
+  ground_truth: Winning by eliminating the enemy or running out the clock pays $3250; terrorists winning by bomb detonation get $3500.
+
+- question: What is the difference between a force buy and an eco?
+  ground_truth: On an eco you buy little or nothing and save for a full buy next round, while on a force buy you spend everything on SMGs, shotguns, armor and cheap rifles because you cannot afford a full buy but cannot give up the round.
+
+- question: Why is saving weapons on a lost round important for the economy?
+  ground_truth: A saved weapon is one fewer gun the team has to rebuy, which can turn a forced eco into a near-full buy.
+
+- question: How much does Kevlar with a helmet cost and why is it worth buying?
+  ground_truth: Kevlar plus helmet costs $1000; the helmet stops a pistol or SMG headshot from being an instant kill, and armor also removes the aim-flinch from being shot.
+
+- question: What does a defuse kit cost and what does it do?
+  ground_truth: A defuse kit costs $400 and cuts the bomb defuse time from 10 seconds to 5 seconds.
+
+- question: What is the price difference between the molotov and the incendiary, and which side uses each?
+  ground_truth: The molotov costs $400 and is the terrorist version, while the incendiary costs $600 and is the CT version; the incendiary burns out slightly faster.
+
+- question: How much does a flashbang cost and how can you reduce its effect?
+  ground_truth: A flashbang costs $200, and you reduce the blind by looking away from it or turning at the right moment.
+
+- question: How long does a smoke last in CS2?
+  ground_truth: A smoke lasts about 18 seconds before it dissipates.
+
+- question: What happens when an HE grenade detonates next to a smoke in CS2?
+  ground_truth: An HE grenade blows a large temporary hole in the smoke, clearing a window to push or shoot through for a moment before the cloud re-forms.
+
+- question: What does the decoy grenade do and how much does it cost?
+  ground_truth: The decoy costs $50 and mimics gunfire sounds and shows fake radar blips to fake activity on one side while the team executes elsewhere.
+
+- question: What is the Zeus x27 and how much does it cost?
+  ground_truth: The Zeus x27 is a $200 single-use taser that kills instantly on a direct hit at very short range and refunds nothing on a miss.
+
+- question: What is "banana" on Inferno?
+  ground_truth: Banana is the long curved corridor from T spawn to B and the most fought-over space on the map, contested with molotovs, HE grenades and smokes.
+
+- question: What is the key to controlling Mirage?
+  ground_truth: Mid control is the key; the team that owns mid can pressure both bombsites through connector and short.
+
+- question: Why is Nuke considered a CT-sided map?
+  ground_truth: Nuke's two bombsites are stacked vertically, with A on the upper level and B directly below, so CT rotations between sites are extremely fast.
+
+- question: What is unique about Vertigo's environment?
+  ground_truth: Vertigo is set on a high-rise construction site with open edges and no railings, so falling off the building is instant death.
+
+- question: What is the defining feature of the map Anubis?
+  ground_truth: Anubis is defined by the water canals running through the map, which open extra paths and make mid and connector control central.
+
+- question: Why does Dust II play differently from utility-heavy maps?
+  ground_truth: Dust II has long, open sightlines that reward rifles and the AWP more than heavy utility.
+
+- question: How long is the round timer and how long is the bomb timer?
+  ground_truth: The round timer is 1:55 (115 seconds) to plant, and the bomb timer is 40 seconds from the plant to detonation.
+
+- question: How long does it take to plant and to defuse the bomb?
+  ground_truth: Planting takes about 3.2 seconds, and defusing takes 10 seconds by hand or 5 seconds with a defuse kit.
+
+- question: What is the MR12 format in CS2?
+  ground_truth: MR12 means a maximum of 12 rounds per half with sides switching at halftime, and the first team to 13 round wins takes the map; it replaced the older MR15 first-to-16 format.
+
+- question: What happens if the score reaches 12-12?
+  ground_truth: At 12-12 the map goes to overtime, played in short MR-based blocks with a fresh starting budget each overtime half until one team pulls ahead.
+
+- question: What rating system does Premier mode use?
+  ground_truth: Premier uses a numeric CS Rating shown on a leaderboard, along with a map pick/ban phase before the match.
+
+- question: What does an entry fragger do?
+  ground_truth: The entry fragger is the first player into a contested space on a T execute, whose job is to win or trade the opening duel and create space even at the cost of dying first.
+
+- question: What is the role of the in-game leader (IGL)?
+  ground_truth: The IGL is the shot-caller who decides buys, calls strategies and mid-round adaptations, and manages the team's tempo and economy.
+
+- question: What is a "split" attack?
+  ground_truth: A split is attacking a single site from two directions at once so defenders cannot cover both, usually after taking map control such as mid.
+
+- question: What is counter-strafing and why does it matter?
+  ground_truth: Counter-strafing is tapping the opposite movement key to stop your momentum instantly so your first shot is accurate, and it is the most important movement skill for winning duels.
+
+- question: How should CTs retake a site after the bomb is planted?
+  ground_truth: CTs should commit together with utility such as flashes, HE grenades and a smoke, trade rather than enter one at a time, and use the defuse kit's five-second defuse.

@@ -1,0 +1,50 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # one-off: chunk the corpus, embed into qdrant, build the bm25 index, then exit
+  indexer:
+    build: .
+    command: python -m scripts.build_index
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - HF_HOME=/models
+    volumes:
+      - hf_cache:/models
+      - ./qdrant_storage:/app/qdrant_storage   # shares bm25.pkl with the api
+    depends_on:
+      - qdrant
+
+  api:
+    build: .
+    command: uvicorn app.api:app --host 0.0.0.0 --port 8000
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - GEN_DEVICE=cpu
+      - HF_HOME=/models
+    ports:
+      - "8000:8000"
+    volumes:
+      - hf_cache:/models
+      - ./qdrant_storage:/app/qdrant_storage
+    depends_on:
+      indexer:
+        condition: service_completed_successfully
+
+  ui:
+    build: .
+    command: streamlit run app/ui.py --server.port 8501 --server.address 0.0.0.0
+    environment:
+      - API_URL=http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+
+volumes:
+  qdrant_data:
+  hf_cache:

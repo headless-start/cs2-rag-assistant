@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.git/
+qdrant_storage/
+chroma_storage/
+.hf_cache/
+models/
+eval/cache/
+CLAUDE.md
+.claude/
+AI_PORTFOLIO_PLAN.md
+*.md.bak
+.env
