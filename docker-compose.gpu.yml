@@ -1,0 +1,14 @@
+# GPU overlay for docker-compose.yml — runs the API on the GPU in 4-bit.
+# Requires the NVIDIA Container Toolkit on the host. Use:
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    gpus: all
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - GEN_DEVICE=cuda
+      - LLM_4BIT=1
+      - HF_HOME=/models

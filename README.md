@@ -103,6 +103,12 @@ Starts Qdrant, builds the index from the corpus, serves the API on `:8000` and
 the Streamlit chat on `:8501`. Models download on first run into a cached
 volume; open http://localhost:8501.
 
+The default image runs on CPU. To run the API on a GPU (CUDA torch + 4-bit
+generation, needs the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)):
+```bash
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+```
+
 ### Local
 ```bash
 python -m venv .venv && source .venv/bin/activate
