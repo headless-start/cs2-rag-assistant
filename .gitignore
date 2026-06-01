@@ -1,0 +1,31 @@
+# local agent/tool config — never commit
+CLAUDE.md
+.claude/
+AI_PORTFOLIO_PLAN.md
+
+# env / secrets
+.env
+.env.*
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# vector store / indexes / caches
+qdrant_storage/
+chroma_storage/
+*.duckdb
+*.duckdb.wal
+.bm25/
+bm25.pkl
+.cache/
+.hf_cache/
+models/
+
+# os / editor
+.DS_Store
+*.swp

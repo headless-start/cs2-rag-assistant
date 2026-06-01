@@ -1,0 +1,31 @@
+# core retrieval / embeddings
+sentence-transformers>=3.0
+torch>=2.2
+transformers>=4.44
+accelerate>=0.33
+qdrant-client>=1.10
+rank-bm25>=0.2.2
+numpy>=1.26
+
+# generation
+huggingface-hub>=0.24
+
+# api + ui
+fastapi>=0.111
+uvicorn[standard]>=0.30
+pydantic>=2.7
+streamlit>=1.36
+requests>=2.31
+
+# eval
+ragas>=0.2
+datasets>=2.20
+
+# misc
+pyyaml>=6.0
+python-dotenv>=1.0
+
+# optional vector-store fallback (zero-infra local)
+# chromadb>=0.5
+# optional 4-bit quantisation for the local generator
+# bitsandbytes>=0.43
