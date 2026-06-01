@@ -31,6 +31,11 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 
+def esc(text):
+    # keep dollar amounts ($4750) from being rendered as LaTeX math
+    return text.replace("$", "\\$")
+
+
 def render_sources(sources, answer=""):
     cited = set(int(n) for n in re.findall(r"\[(\d+)\]", answer))
     with st.expander(f"Sources ({len(sources)} passages)", expanded=False):
@@ -50,13 +55,14 @@ def render_sources(sources, answer=""):
                 scores.append(f"bm25 {s['bm25_score']:.2f}")
             if scores:
                 st.caption(" · ".join(scores))
-            st.markdown(f"> {s['body'][:600]}")
+            body = esc(s["body"][:600])
+            st.markdown("\n".join("> " + ln for ln in body.splitlines()))
             st.divider()
 
 
 for turn in st.session_state.history:
     with st.chat_message(turn["role"]):
-        st.markdown(turn["content"])
+        st.markdown(esc(turn["content"]))
         if turn.get("sources"):
             render_sources(turn["sources"], turn["content"])
 
@@ -75,7 +81,7 @@ if prompt := st.chat_input("Ask a CS2 question…"):
                 answer, sources = data["answer"], data["sources"]
             except Exception as e:
                 answer, sources = f"Request failed: {e}", []
-        st.markdown(answer)
+        st.markdown(esc(answer))
         if sources:
             render_sources(sources, answer)
     st.session_state.history.append(

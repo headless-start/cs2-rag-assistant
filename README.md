@@ -18,6 +18,8 @@ a cross-encoder reranker, grounded generation, and an offline evaluation.
 **Goal**: Accurate, grounded, cited answers from a small curated corpus — and
 back it with real evaluation numbers.
 
+![The chat UI: a grounded answer with inline citations and the source passages, each with its hybrid-retrieval scores](docs/demo.png)
+
 ---
 
 ## 🚀 Key Features
