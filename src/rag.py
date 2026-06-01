@@ -42,6 +42,7 @@ class RagPipeline:
             return RagResult("I don't have enough information to answer that.",
                              [], query)
         user = (f"Context passages:\n{format_context(passages)}\n\n"
-                f"Question: {query}\n\nAnswer with inline [n] citations.")
+                f"Question: {query}\n\nAnswer the question, citing the passages "
+                f"you use by their bracketed number.")
         answer = self.generator.generate(SYSTEM, user, max_new_tokens=max_new_tokens)
         return RagResult(answer, passages, query)

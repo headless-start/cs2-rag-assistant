@@ -1,14 +1,18 @@
+# Retrieval + serving stack. Versions are pinned to a set that resolves
+# cleanly together: ragas 0.2 pulls the langchain 0.3 line, which (via
+# huggingface-hub < 1.0) keeps transformers on the 4.x line. Keeping the whole
+# project on that line avoids the hub 1.x split between transformers 5 and the
+# datasets/langchain ecosystem.
+
 # core retrieval / embeddings
-sentence-transformers>=3.0
 torch>=2.2
-transformers>=4.44
+sentence-transformers>=3.0,<6
+transformers>=4.46,<5
 accelerate>=0.33
+huggingface-hub>=0.25,<1.0
 qdrant-client>=1.10
 rank-bm25>=0.2.2
-numpy>=1.26
-
-# generation
-huggingface-hub>=0.24
+numpy>=1.26,<3
 
 # api + ui
 fastapi>=0.111
@@ -18,14 +22,17 @@ streamlit>=1.36
 requests>=2.31
 
 # eval
-ragas>=0.2
+ragas==0.2.15
 datasets>=2.20
+langchain>=0.3,<1.0
+langchain-community>=0.3,<1.0
+langchain-huggingface>=0.1,<1.0
 
 # misc
 pyyaml>=6.0
 python-dotenv>=1.0
 
-# optional vector-store fallback (zero-infra local)
-# chromadb>=0.5
-# optional 4-bit quantisation for the local generator
+# optional: 4-bit quantisation for the local generator on a GPU (LLM_4BIT=1)
 # bitsandbytes>=0.43
+# optional: zero-infra local vector store instead of Qdrant (VECTOR_BACKEND=chroma)
+# chromadb>=0.5
